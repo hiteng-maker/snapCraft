@@ -1,0 +1,20 @@
+name: server-snap
+version: '1.0'
+base: core22
+summary: A TCP server Snap
+description: |
+  This snap runs a simple TCP server.
+
+grade: stable
+confinement: strict
+
+parts:
+  server:
+    source: ./src
+    plugin: make
+    build-packages: [gcc, make]
+
+apps:
+  server:
+    command: bin/server
+    plugs: [network-bind]

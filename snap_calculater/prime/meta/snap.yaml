@@ -1,0 +1,17 @@
+name: calculator-snap
+version: '1.0'
+summary: Simple Calculator Snap
+description: |
+  A Snap that runs a basic calculator program for addition, subtraction,
+  multiplication, and division.
+architectures:
+- amd64
+base: core22
+apps:
+  calculator:
+    command: bin/calculator
+confinement: strict
+grade: stable
+environment:
+  LD_LIBRARY_PATH: ${SNAP_LIBRARY_PATH}${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+  PATH: $SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH

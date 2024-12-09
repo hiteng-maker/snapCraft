@@ -1,0 +1,22 @@
+name: client-snap
+version: '1.0'
+base: core22
+summary: A TCP client Snap
+description: |
+  This snap runs a simple TCP client.
+
+grade: stable
+confinement: strict
+
+apps:
+  client:
+    command: bin/client
+    plugs: [network]
+
+parts:
+  client:
+    source: ./src
+    plugin: make
+    build-attributes:
+      - no-system-libraries
+

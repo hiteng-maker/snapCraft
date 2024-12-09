@@ -1,0 +1,21 @@
+name: calculator-snap                  # Unique name for your Snap
+base: core22                           # Base Snap (core20 or core22)
+version: '1.0'                         # Version of the Snap
+summary: Simple Calculator Snap        # Brief description
+description: |
+  A Snap that runs a basic calculator program for addition, subtraction,
+  multiplication, and division.
+
+grade: stable                          # Stability level (devel or stable)
+confinement: strict                    # Confinement level (strict or devmode)
+
+parts:
+  calculator:
+    plugin: make                       # Use make to build the program
+    source: src/                       # Source directory with Makefile and code
+    build-packages: [gcc, make]        # Required build tools
+
+apps:
+  calculator:
+    command: bin/calculator            # Command to execute the built binary
+
