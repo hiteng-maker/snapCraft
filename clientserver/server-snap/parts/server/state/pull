@@ -7,6 +7,7 @@ files: !!set {}
 outdated_dirs: []
 outdated_files:
 - Makefile
+- server.c
 part_properties:
   after: []
   build-attributes: []

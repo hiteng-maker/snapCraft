@@ -5,12 +5,16 @@
 #include <arpa/inet.h>
 
 #define PORT 8080
+#define BUFFER_SIZE 400  // Buffer size for the message
 
 int main() {
     int sock = 0;
     struct sockaddr_in serv_addr;
-    const char *message = "Hello from client";
-    char buffer[1024] = {0};
+    char message[BUFFER_SIZE];
+    char buffer[BUFFER_SIZE] = {0};
+
+    // Create the message to send
+    snprintf(message, BUFFER_SIZE, "This is a test message from the client. It is designed to be exactly 400 bytes. %*s", 400 - 83, ""); // Fill to make 400 bytes
 
     // Create socket file descriptor
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
@@ -33,10 +37,17 @@ int main() {
         return -1;
     }
 
-    send(sock, message, strlen(message), 0);
-    printf("Message sent to server\n");
-    read(sock, buffer, 1024);
-    printf("Server: %s\n", buffer);
+    // Send 400 bytes to the server
+    send(sock, message, BUFFER_SIZE, 0);
+    printf("400-byte message sent to server\n");
+
+    // Read response from the server
+    int bytes_read = read(sock, buffer, BUFFER_SIZE);
+    if (bytes_read < 0) {
+        perror("Read failed");
+    } else {
+        printf("Server: %.*s\n", bytes_read, buffer);
+    }
 
     close(sock);
 
