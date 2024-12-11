@@ -6,7 +6,6 @@ directories: !!set {}
 files: !!set {}
 outdated_dirs: []
 outdated_files:
-- Makefile
 - client.c
 part_properties:
   after: []
