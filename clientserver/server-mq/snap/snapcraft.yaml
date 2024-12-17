@@ -1,0 +1,28 @@
+name: server-mq-snap
+base: core22
+version: '1.0'
+summary: Server Snap for Message Queue Example
+description: |
+  The server snap receives a 400-byte message from the client snap using a POSIX message queue.
+
+grade: stable
+confinement: strict
+
+parts:
+  server:
+    source: ./src
+    plugin: make
+    build-packages: [gcc, make]
+
+apps:
+  server:
+    command: bin/server-mq
+    plugs: [network]
+    slots: 
+        - posix-mq-slot
+
+slots:
+   posix-mq-slot:
+     interface: posix-mq
+     path: /my_queue
+

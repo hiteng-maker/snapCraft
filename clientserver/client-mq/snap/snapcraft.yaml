@@ -1,0 +1,28 @@
+name: client-mq-snap
+base: core22
+version: '1.0'
+summary: Client Snap for Message Queue Example
+description: |
+  The client snap sends a 400-byte message to the server snap using a POSIX message queue.
+
+grade: stable
+confinement: strict
+
+apps:
+  client:
+    command: bin/client-mq
+    plugs: 
+      - posix-mq-plug
+
+plugs:
+  posix-mq-plug:
+    interface: posix-mq
+    name: /my_queue
+
+parts:
+  client:
+    source: ./src
+    plugin: make
+    build-attributes:
+      - no-system-libraries
+

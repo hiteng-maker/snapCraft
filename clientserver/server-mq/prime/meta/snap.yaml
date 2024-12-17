@@ -1,0 +1,24 @@
+name: server-mq-snap
+version: '1.0'
+summary: Server Snap for Message Queue Example
+description: |
+  The server snap receives a 400-byte message from the client snap using a POSIX message queue.
+architectures:
+- amd64
+base: core22
+apps:
+  server:
+    command: bin/server-mq
+    plugs:
+    - network
+    slots:
+    - posix-mq-slot
+confinement: strict
+grade: stable
+environment:
+  LD_LIBRARY_PATH: ${SNAP_LIBRARY_PATH}${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+  PATH: $SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
+slots:
+  posix-mq-slot:
+    interface: posix-mq
+    path: /my_queue
